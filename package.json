@@ -12,12 +12,27 @@
   },
   "keywords": [
     "electron",
-    "react"
+    "react",
+    "react dom",
+    "react rounter",
+    "photon"
   ],
   "author": "yagisuke",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/yagisuke/electron-chat/issues"
   },
-  "homepage": "https://github.com/yagisuke/electron-chat#readme"
+  "homepage": "https://github.com/yagisuke/electron-chat#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "electron": "^1.8.4"
+  },
+  "dependencies": {
+    "photon": "connors/photon",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1",
+    "react-router": "^4.2.0"
+  }
 }
