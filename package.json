@@ -2,7 +2,7 @@
   "name": "electron-chat",
   "version": "1.0.0",
   "description": "This is chat apps.",
-  "main": "main.js",
+  "main": ".tmp/main/index.js",
   "scripts": {
     "test": "test"
   },
