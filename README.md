@@ -8,8 +8,8 @@ yarnが入っていることを前提に記載.
 
 ```sh
 $ yarn install
-$ ./node_modules/.bin/babel --out-dir .tmp src
-$ ./node_modules/.bin/electron .
+$ yarn run watch or ./node_modules/.bin/babel --out-dir .tmp src
+$ yarn start or ./node_modules/.bin/electron .
 ```
 
 ### css
