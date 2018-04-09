@@ -17,6 +17,7 @@
     "react",
     "react dom",
     "react rounter",
+    "firebase",
     "photon"
   ],
   "author": "yagisuke",
@@ -26,6 +27,7 @@
   },
   "homepage": "https://github.com/yagisuke/electron-chat#readme",
   "dependencies": {
+    "firebase": "^4.12.1",
     "photon": "connors/photon",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
