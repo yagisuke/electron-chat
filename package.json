@@ -4,7 +4,9 @@
   "description": "This is chat apps.",
   "main": ".tmp/main/index.js",
   "scripts": {
-    "test": "test"
+    "compile": "babel --out-dir .tmp src",
+    "watch": "babel --watch --out-dir .tmp src",
+    "start": "electron ."
   },
   "repository": {
     "type": "git",
