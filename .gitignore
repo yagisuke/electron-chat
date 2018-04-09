@@ -1,7 +1,5 @@
 # 情報漏洩に注意
 
-src/**/firebase-config.js
-
 # その他
 yarn-error.log
 node_modules
