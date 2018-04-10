@@ -1,5 +1,7 @@
 import { default as FIREBASE_CONFIG } from './firebase-config'
 
-export default {
+const Const = {
   FIREBASE_CONFIG
 }
+
+export default Const
