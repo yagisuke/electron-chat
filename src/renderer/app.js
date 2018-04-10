@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
 import { HashRouter, Switch, Route, Redirect } from 'react-router-dom'
-import firebase from 'firebase/firebase-browser'
-import { Const } from '..'
+import * as firebase from 'firebase'
+import Const from '../const'
 import Signin from './Signin'
 import Signup from './Signup'
 import Rooms from './Rooms'
@@ -12,7 +12,7 @@ const { FIREBASE_CONFIG } = Const
 
 // routingの定義
 const appRouting = (
-    <HashRouter>       
+    <HashRouter>
         <Switch>
             <Route path='/signin' component={Signin} />
             <Route path='/signup' component={Signup} />
