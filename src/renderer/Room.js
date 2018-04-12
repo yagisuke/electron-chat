@@ -1,18 +1,10 @@
 import React, { Component } from 'react'
-import RoomItem from './RoomItem'
+import Message from './Message'
+import NewMessage from './NewMessage'
 import firebase from 'firebase'
 
-const ICON_CHAT_STYLE = {
-    fontSize: 120,
-    color: '#DDD'
-}
-
-const FORM_STYLE = {
-    display: 'flex'
-}
-
-const BUTTON_STYLE = {
-    marginLeft: 10
+const ROOM_STYLE = {
+    padding: '10px 30px'
 }
 
 class Room extends Component {
@@ -20,101 +12,85 @@ class Room extends Component {
         super(props)
 
         this.state = {
-            roomName: '',
-            rooms: []
+            description: '',
+            messages: []
         }
 
         this.db = firebase.database()
-        this.handleOnChangeRoomName = this.handleOnChangeRoomName.bind(this)
-        this.handleOnSubmit = this.handleOnSubmit.bind(this)
+        this.handleMessagePost = this.handleMessagePost.bind(this)
     }
 
     componentDidMount() {
-        this.fetchRooms()
+        const { roomId } = this.props.params
+        this.fetchRooms(roomId)
     }
 
-    handleOnChangeRoomName(e) {
-        this.setState({ roomName: e.target.value })
-    }
+    componentWillReceiveProps(nextProps) {
+        const { roomId } = nextProps.params
 
-    handleOnSubmit(e) {
-        const { roomName } = this.state
-        
-        e.preventDefault()
-
-        if (!roomName.length) {
+        if (roomId === this.props.params.roomId) {
             return
         }
 
-        const newRoomRef = this.db.ref('/chatrooms').push()
-        const newRoom = {
-            description: roomName
+        if (this.stream) {
+            this.stream.off()
         }
-        newRoomRef.update(newRoom).then(() => {
-            this.setState({ roomName: '' })
-            return this.fetchRooms().then(() => {
-                this.props.push(`/rooms/${newRoomRef.key}`)
-            })
+
+        this.setState({ messages: [] })
+        this.fetchRooms(roomId)
+    }
+
+    componentDidUpdate() {
+        setTimeout(() => {
+            this.room.parentNode.scrollTop = this.room.parentNode.scrollHeight
+        }, 0)
+    }
+
+    componentWillUnmount() {
+        if (this.stream) {
+            this.stream.off()
+        }
+    }
+
+    handleMessagePost(message) {
+        const newItemRef = this.fbChatRoomRef.child('messages').push()
+        this.user = this.user || firebase.auth().currentUser
+
+        return newItemRef.update({
+            writtenBy: {
+                uid: this.user.uid,
+                displayName: this.user.displayName,
+                photoURL: this.user.photoURL
+            },
+            time: Date.now(),
+            text: message
         })
     }
 
-    fetchRooms() {
-        return this.db.ref('/chatrooms').limitToLast(20).once('value').then(snapshot => {
-            const rooms = []
-            snapshot.forEach(item => {
-                rooms.push(Object.assign({ key: item.key }, item.val()))
-            })
-            this.setState({ rooms })
+    fetchRooms(roomId) {
+        this.fbChatRoomRef = this.db.ref('/chatrooms/' + roomId)
+        this.fbChatRoomRef.once('value').then(snapshot => {
+            const { description } = snapshot.val()
+            this.setState({ description })
+            window.document.title = description
         })
-    }
-
-    renderRoomList() {
-        const { roomId } = this.props.params
-        const { rooms, roomName } = this.state
-
-        return (
-            <div className='list-group'>
-                {romms.map(r => <RoomItem key={r.key} room={r} selected={r.key === roomId} />)}
-                <div className='list-group-header'>
-                    <form style={FORM_STYLE} onSubmit={this.handleOnSubmit}>
-                        <input
-                            type="text"
-                            classname='form-control'
-                            placeholder='New room'
-                            onChange={this.handleOnChangeRoomName}
-                            value={roomName}
-                        />
-                        <button className='btn btn-default' style={BUTTON_STYLE}>
-                            <span className='icon icon-plus' />
-                        </button>
-                    </form>
-                </div>
-            </div>
-        )
-    }
-
-    renderRoom() {
-        if (this.props.children) {
-            return this.props.children
-        }
-
-        return (
-            <div className='text-center'>
-                <div style={ICON_CHAT_STYLE}>
-                    <span className='icon icon-chat' />
-                </div>
-                <p>
-                    Join a chat room from the sidebar or create your chat room.
-                </p>
-            </div>
-        )
+        this.stream = this.fbChatRoomRef.child('messages').limitToLast(10)
+        this.stream.on('child_added', item => {
+            const { messages } = this.state || []
+            messages.push(Object.assign({ key: item.key }, item.val()))
+            this.setState({ messages })
+        })
     }
 
     render() {
+        const { messages } = this.state
+
         return (
-            <div className='pane-group'>
-                <div className='pane-sm sidebar'>{this.renderRoomList()}</div>
-                <div className='pane'>{this.renderRoom()}</div>
+            <div style={ROOM_STYLE} ref={room => this.room = room}>
+                <div className='list-group'>
+                    {this.messages.map(m => <Message key={m.key} message={m} />)}
+                </div>
+                <NewMessage onMessagePost={this.handleMessagePost} />
             </div>
         )
     }
