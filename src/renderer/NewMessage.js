@@ -12,7 +12,10 @@ class NewMessage extends Component {
     constructor(props) {
         super(props)
 
-        this.state = { message: '' }
+        this.state = {
+            message: ''
+        }
+
         this.handleOnChange = this.handleOnChange.bind(this)
         this.handleOnSubmit = this.handleOnSubmit.bind(this)
     }

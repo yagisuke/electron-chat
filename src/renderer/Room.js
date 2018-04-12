@@ -21,14 +21,14 @@ class Room extends Component {
     }
 
     componentDidMount() {
-        const { roomId } = this.props.params
+        const { roomId } = this.props.match.params
         this.fetchRooms(roomId)
     }
 
     componentWillReceiveProps(nextProps) {
-        const { roomId } = nextProps.params
+        const { roomId } = nextProps.match.params
 
-        if (roomId === this.props.params.roomId) {
+        if (roomId === this.props.match.params.roomId) {
             return
         }
 
@@ -88,7 +88,7 @@ class Room extends Component {
         return (
             <div style={ROOM_STYLE} ref={room => this.room = room}>
                 <div className='list-group'>
-                    {this.messages.map(m => <Message key={m.key} message={m} />)}
+                    {messages.map(m => <Message key={m.key} message={m} />)}
                 </div>
                 <NewMessage onMessagePost={this.handleMessagePost} />
             </div>

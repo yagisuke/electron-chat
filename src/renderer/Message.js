@@ -16,17 +16,17 @@ const TEXT_STYLE = {
 }
 
 function Message(props) {
-    const { text, time, writttenBy } = props.message
+    const { text, time, writtenBy } = props.message
     const localString = new Date(time).toLocaleString()
 
     return (
         <div className='list-group-item'>
             <div className='media-object pull-left'>
-                <Avatar user={writttenBy} />
+                <Avatar user={writtenBy} />
             </div>
             <div className='media-body'>
                 <div sthyle={MEDIA_BODY_STYLE}>
-                    <span>{writttenBy.displayName}</span>
+                    <span>{writtenBy.displayName}</span>
                     <span style={TIME_STYLE}>{localString}</span>
                 </div>
                 <p style={TEXT_STYLE}>{text}</p>
@@ -34,3 +34,5 @@ function Message(props) {
         </div>
     )
 }
+
+export default Message

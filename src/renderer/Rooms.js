@@ -53,7 +53,7 @@ class Room extends Component {
         newRoomRef.update(newRoom).then(() => {
             this.setState({ roomName: '' })
             return this.fetchRooms().then(() => {
-                this.props.push(`/rooms/${newRoomRef.key}`)
+                this.props.history.push(`/rooms/${newRoomRef.key}`)
             })
         })
     }
@@ -69,17 +69,18 @@ class Room extends Component {
     }
 
     renderRoomList() {
-        const { roomId } = this.props.params
+        console.log('TODO: roomIdを取得して、selectedをどうにかする')
+        // const { roomId } = this.props.params
         const { rooms, roomName } = this.state
 
         return (
             <div className='list-group'>
-                {romms.map(r => <RoomItem key={r.key} room={r} selected={r.key === roomId} />)}
+                {rooms.map(r => <RoomItem key={r.key} room={r} selected={false} />)}
                 <div className='list-group-header'>
                     <form style={FORM_STYLE} onSubmit={this.handleOnSubmit}>
                         <input
                             type="text"
-                            classname='form-control'
+                            className='form-control'
                             placeholder='New room'
                             onChange={this.handleOnChangeRoomName}
                             value={roomName}
