@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Message from './Message'
 import NewMessage from './NewMessage'
 import firebase from 'firebase'
+import RoomTemplate from './RoomTemplate';
 
 const ROOM_STYLE = {
     padding: '10px 30px'
@@ -83,17 +84,18 @@ class Room extends Component {
     }
 
     render() {
+        const { roomId } = this.props.match.params
         const { messages } = this.state
 
         return (
-            <div className='pane'>
+            <RoomTemplate roomId={roomId}>
                 <div style={ROOM_STYLE} ref={room => this.room = room}>
                     <div className='list-group'>
                         {messages.map(m => <Message key={m.key} message={m} />)}
                     </div>
                     <NewMessage onMessagePost={this.handleMessagePost} />
                 </div>
-            </div>
+            </RoomTemplate>
         )
     }
 }

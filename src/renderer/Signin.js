@@ -37,11 +37,11 @@ class Signin extends Component {
     }
 
     handleOnSubmit(e) {
+        e.preventDefault()
+
         const { email, password } = this.state
         const errors = []
         let isValid = true
-
-        e.preventDefault()
 
         if (!email.length) {
             isValid = false
