@@ -71,7 +71,7 @@ class RoomTemplate extends Component {
             <div className='pane-group'>
                 <div className='pane-sm sidebar'>
                     <div className='list-group'>
-                        {rooms.map(r => console.log(r) || <RoomItem key={r.key} room={r} selected={r.key === roomId} />)}
+                        {rooms.map(r => <RoomItem key={r.key} room={r} selected={r.key === roomId} />)}
                         <div className='list-group-header'>
                             <form style={FORM_STYLE} onSubmit={this.handleOnSubmit}>
                                 <input
