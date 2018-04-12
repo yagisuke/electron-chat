@@ -48,11 +48,11 @@ class Signup extends Component {
     }
 
     handleOnSubmit(e) {
+        e.preventDefault()
+
         const { email, password, name, photoURL } = this.state
         const errors = []
         let isValid = true
-
-        e.preventDefault()
 
         if (!email.length) {
             isValid = false

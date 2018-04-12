@@ -25,6 +25,8 @@ class NewMessage extends Component {
     }
 
     handleOnSubmit(e) {
+        e.preventDefault()
+
         const { onMessagePost } = this.props
 
         if (!onMessagePost || !this.state.message.length) {
@@ -32,15 +34,14 @@ class NewMessage extends Component {
         }
 
         onMessagePost(this.state.message)
-        this.setState({ message: ''})
-        e.preventDefault()
+        this.setState({ message: '' })
     }
 
     render() {
         return (
             <form style={FORM_STYLE} onSubmit={this.handleOnSubmit}>
                 <input
-                    type="text"
+                    type='text'
                     className='form-control'
                     onChange={this.handleOnChange}
                     value={this.state.message}
