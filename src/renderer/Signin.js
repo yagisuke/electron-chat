@@ -96,6 +96,7 @@ class Signin extends Component {
                 </div>
                 <div className='form-group'>
                     <button
+                        type='button'
                         className='btn btn-large btn-default'
                         onClick={this.handleOnSubmit}
                     >
