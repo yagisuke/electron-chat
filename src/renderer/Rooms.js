@@ -69,6 +69,7 @@ class Room extends Component {
     }
 
     renderRoomList() {
+        console.log('TODO: ここらへんテンプレート化したい')
         console.log('TODO: roomIdを取得して、selectedをどうにかする')
         // const { roomId } = this.props.params
         const { rooms, roomName } = this.state

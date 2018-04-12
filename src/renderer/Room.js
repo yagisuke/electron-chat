@@ -86,11 +86,13 @@ class Room extends Component {
         const { messages } = this.state
 
         return (
-            <div style={ROOM_STYLE} ref={room => this.room = room}>
-                <div className='list-group'>
-                    {messages.map(m => <Message key={m.key} message={m} />)}
+            <div className='pane'>
+                <div style={ROOM_STYLE} ref={room => this.room = room}>
+                    <div className='list-group'>
+                        {messages.map(m => <Message key={m.key} message={m} />)}
+                    </div>
+                    <NewMessage onMessagePost={this.handleMessagePost} />
                 </div>
-                <NewMessage onMessagePost={this.handleMessagePost} />
             </div>
         )
     }
