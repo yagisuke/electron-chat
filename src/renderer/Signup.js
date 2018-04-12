@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom'
 import Errors from './Errors'
 import firebase from 'firebase'
 
-const SIGNUP_FORM_STYLE = {
+const FORM_STYLE = {
     margin: '0 auto',
     padding: 30
 }
 
 const CANCEL_BUTTON_STYLE = {
-    maringLeft: 10
+    marginLeft: 10
 }
 
 class Signup extends Component {
@@ -91,13 +91,13 @@ class Signup extends Component {
 
     render() {
         return (
-            <form style={SIGNUP_FORM_STYLE} onSubmit={this.handleOnSubmit}>
+            <form style={FORM_STYLE} onSubmit={this.handleOnSubmit}>
                 <Errors errorMessages={this.state.errors} />
                 <div className='form-group'>
                     <label>Email address*</label>
                     <input
                         type='email'
-                        className='from-control'
+                        className='form-control'
                         placeholder='email'
                         value={this.state.email}
                         onChange={this.handleOnChangeEmail}
@@ -107,7 +107,7 @@ class Signup extends Component {
                     <label>Password*</label>
                     <input
                         type='password'
-                        className='from-control'
+                        className='form-control'
                         placeholder='password'
                         value={this.state.password}
                         onChange={this.handleOnChangePassword}
@@ -117,7 +117,7 @@ class Signup extends Component {
                     <label>User name*</label>
                     <input
                         type='text'
-                        className='from-control'
+                        className='form-control'
                         placeholder='user name'
                         value={this.state.name}
                         onChange={this.handleOnChangeName}
@@ -127,13 +127,13 @@ class Signup extends Component {
                     <label>Photo URL</label>
                     <input
                         type='text'
-                        className='from-control'
+                        className='form-control'
                         placeholder='photo URL'
                         value={this.state.photoURL}
                         onChange={this.handleOnChangePhotoURL}
                     />
                 </div>
-                <div class='form-group'>
+                <div className='form-group'>
                     <button
                         type='button'
                         className='btn btn-large btn-primary'
