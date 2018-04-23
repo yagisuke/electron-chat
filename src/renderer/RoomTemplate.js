@@ -57,7 +57,10 @@ class RoomTemplate extends Component {
         return this.db.ref('/chatrooms').limitToLast(20).once('value').then(snapshot => {
             const rooms = []
             snapshot.forEach(item => {
-                rooms.push(Object.assign({ key: item.key }, item.val()))
+                rooms.push({
+                    key: item.key,
+                    description: item.val().description
+                })
             })
             this.setState({ rooms })
         })
