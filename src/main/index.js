@@ -8,7 +8,7 @@ app.on('ready', () => {
 })
 
 app.on('window-all-closed', () => {
-    if (process.platform === 'drawin') return
+    if (process.platform === 'darwin') return
     app.quit()
 })
 
